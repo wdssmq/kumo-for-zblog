@@ -1,0 +1,27 @@
+{
+  "index": {
+    "url": "https://www.jianshu.com/",
+    "rules": {
+      "url": ["a.title", "href"]
+    },
+    "subMap": [
+      {
+        "with": "post",
+        "range": ".note-list li",
+        "dataMap": ["url", "url"]
+      }
+    ]
+  },
+  "post": {
+    "url": "https://www.jianshu.com/p/c393e145d6a7",
+    "rules": {
+      "title": ["section h1", "text"],
+      "body": ["._2rhmJa", "html"]
+    },
+    "act": {
+      "title": ["", "title"],
+      "cate": ["str", "jianshu"],
+      "author": ["str", "admin"]
+    }
+  }
+}
