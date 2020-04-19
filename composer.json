@@ -1,0 +1,6 @@
+{
+    "require": {
+        "jaeger/querylist": "^4.2",
+        "jaeger/querylist-absolute-url": "^4.0"
+    }
+}
