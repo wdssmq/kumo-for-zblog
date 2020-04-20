@@ -54,10 +54,20 @@ require $blogpath . 'zb_system/admin/admin_top.php';
         </tr>
       </table>
     </form>
+    ----
+    <p><?php echo kumo_a(kumo_Path("run", "host"), "运行地址"); ?></p>
+    <p>将usr_sample中的示例规则复制进usr中，然后访问如上地址即可触发；实际使用时可将该地址添加到云监控服务中。</p>
   </div>
 </div>
 
 <?php
+function kumo_a($href, $title, $text = "")
+{
+  if (empty($text)) {
+    $text = $href;
+  }
+  return "<a href=\"{$href}\" title=\"{$title}\">$href</a>";
+}
 function kumo_pjectList()
 {
   $arrJSON = array();
@@ -65,7 +75,6 @@ function kumo_pjectList()
   $rlt = "";
   foreach ($arrJSON as $name => $path) {
     $project = kumo_ReadJSON($name);
-
     if (isset($project->title)) {
       $name = "{$project->title}【{$project->name}】";
     }

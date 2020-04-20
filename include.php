@@ -28,6 +28,9 @@ function kumo_Path($file, $t = 'path')
     case 'usr':
       return $result . 'usr/';
       break;
+    case 'run':
+      return $result . 'run.php';
+      break;
     case 'main':
       return $result . 'main.php';
       break;
