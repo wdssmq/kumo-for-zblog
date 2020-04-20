@@ -39,6 +39,32 @@ class kumoJSON
     $item["cache"] = $this->cache;
     return $item;
   }
+  /**
+   * @param $name
+   *
+   * @return mixed
+   */
+  public function __get($name)
+  {
+    if (isset($this->task[$name])) {
+      return $this->task[$name];
+    } else {
+      return null;
+    }
+  }
+  /**
+   * @param $name
+   *
+   * @return bool
+   */
+  public function __isset($name)
+  {
+    if (isset($this->task[$name])) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   // public function GetTask()
   // {
   //   $arr = $this->task;
