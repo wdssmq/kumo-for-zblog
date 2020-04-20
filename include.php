@@ -37,6 +37,12 @@ function kumo_Path($file, $t = 'path')
 };
 function InstallPlugin_kumo()
 {
+  global $zbp;
+  if (!$zbp->HasConfig('kumo')) {
+    $zbp->Config('kumo')->version = 1;
+    $zbp->Config('kumo')->debug = 1;
+    $zbp->SaveConfig('kumo');
+  }
   $dir = kumo_Path("usr");
   if (!is_dir($dir)) {
     @mkdir($dir, 0755);
