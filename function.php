@@ -1,6 +1,16 @@
 <?php
 function kumo_Initialization(&$arrJSON = array())
 {
+  global $zbp;
+  $zbp->AddBuildModule('catalog');
+  $zbp->AddBuildModule('previous');
+  $zbp->AddBuildModule('calendar');
+  $zbp->AddBuildModule('comments');
+  $zbp->AddBuildModule('archives');
+  $zbp->AddBuildModule('tags');
+  $zbp->AddBuildModule('authors');
+  $zbp->BuildModule();
+  $zbp->SaveCache();
   $GLOBALS['table']['kumo_Risuto'] = kumoDB::$tableX;
   $GLOBALS['datainfo']['kumo_Risuto'] = kumoDB::$datainfoX;
   $dir = kumo_Path("cache");
@@ -24,8 +34,22 @@ function kumo_AddRisuto($arrRisuto)
   $arrCount = [0, 0];
   foreach ($arrRisuto as $itemRisuto) {
     $obj = new kumoDB();
+
+    // // debug
+    // // ob_clean();
+    // echo __FILE__ . "丨" . __LINE__ . ":<br>\n";
+    // var_dump($itemRisuto);
+    // echo "<br><br>\n\n";
+    // die();
+    // // debug
+
+    if (empty($itemRisuto['url'])) {
+      continue;
+    }
+
     if ($obj->LoadInfoByField("Url", $itemRisuto['url'])) {
       $repeat = 0;
+      // $repeat = 1;
       if ($_SERVER['kumo_start_time'] - $obj->Time > 259200) {
         $repeat++;
       }
@@ -84,10 +108,16 @@ function kumo_DoAct($arr, $act)
   if (stripos($post->Content, $arr["body"]) === false)
     $post->Content .= $arr["body"];
   if (!isset($arr["cate"])) {
-    echo __LINE__ . "未指定分类\n\n";
+    echo __LINE__ . "：未指定分类\n\n";
+  } else {
+    $post->CateID = kumo_GetCate($arr["cate"]);
+  }
+  if (isset($arr['intro'])) {
+    $post->Intro = $arr['intro'];
+  } else if (empty($post->Intro)) {
+    $post->Intro = preg_replace('/^((<p>.+?<\/p>){1,5}).+/u',  '$1', $post->Content);
   }
   $post->PostTime = time();
-  $post->CateID = kumo_GetCate($arr["cate"], "&gt;");
   $post->AuthorID = kumo_AuthorID($arr["author"]);
   // foreach ($act as $k => $itemRisuto) {
   //   if (HasNameInString($itemRisuto[0], "body")) {
