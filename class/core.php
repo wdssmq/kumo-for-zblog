@@ -42,7 +42,20 @@ class kumoCore
     if ($this->errcode > 0)
       return null;
     if (is_array($option)) {
-      $cQuery = $this->Query->rules($this->rules)->range($option["range"])->query();
+      $curKey = $option['dataMap'][0];
+      $option["rule"] = array($curKey => $this->rules[$curKey]);
+      $cQuery = $this->Query->rules($option["rule"])->range($option["range"])->query();
+
+      // // debug
+      // // ob_clean();
+      // echo __FILE__ . "丨" . __LINE__ . ":<br>\n";
+      // $testData = $cQuery->getData()->all();
+      // var_dump($option);
+      // var_dump($testData);
+      // echo "<br><br>\n\n";
+      // // die();
+      // // debug
+
       $data = $cQuery->getData(function ($item) use ($option) {
         $rlt = $option;
         $keyMap = $option['dataMap'];

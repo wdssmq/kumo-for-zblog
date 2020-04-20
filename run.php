@@ -40,6 +40,7 @@ foreach ($Risutos as $Risuto) {
 
 function kumo_Run($task, $u = "")
 {
+  global $zbp;
   global $project;
   $obj = new kumoCore($task, $u);
   // $obj->debug(1);
@@ -47,8 +48,11 @@ function kumo_Run($task, $u = "")
     $obj->debug(1);
     return $obj->ErrInfo;
   }
-  echo "-----<br><br>\n\n";
-  echo __LINE__ . "：网址 - 采集规则丨{$obj->url} - {$obj->name}", "<br><br>\n\n";
+
+  if ($zbp->Config('kumo')->debug) {
+    echo "-----<br><br>\n\n";
+    echo __LINE__ . "：网址 - 采集规则丨{$obj->url} - {$obj->name}", "<br><br>\n\n";
+  }
 
   if (isset($obj->subMap)) {
     echo __LINE__ . "：子任务入库", "<br><br>\n\n";
@@ -57,6 +61,15 @@ function kumo_Run($task, $u = "")
         continue;
       $getOpt = array("cur" => $task['name'], "project" => $task['project']) + $opt;
       $list = $obj->Get($getOpt);
+
+      // // debug
+      // // ob_clean();
+      // echo __FILE__ . "丨" . __LINE__ . ":<br>\n";
+      // var_dump($list);
+      // echo "<br><br>\n\n";
+      // // die();
+      // // debug
+
       $rlt = kumo_AddRisuto($list);
       echo __LINE__ . "：{$opt['with']}-{$rlt}", "<br><br>\n\n";
     }
@@ -65,6 +78,15 @@ function kumo_Run($task, $u = "")
   // return;
   if (isset($obj->act)) {
     $data = $obj->Get();
+
+    // // debug
+    // // ob_clean();
+    // echo __FILE__ . "丨" . __LINE__ . ":<br>\n";
+    // var_dump($data);
+    // echo "<br><br>\n\n";
+    // // die();
+    // // debug
+
     kumo_DoAct($data, $obj->act);
     return;
   }

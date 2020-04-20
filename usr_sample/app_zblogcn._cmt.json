@@ -3,13 +3,19 @@
     "url": "https://app.zblogcn.com/",
     "rules": {
       "post": ["a.clickable-link", "href"],
-      "next": [".now-page+a", "href"]
+      "next": [".now-page+a", "href"],
+      "more": [".app-intro-more a", "href"]
     },
     "subMap": [
       {
         "with": "index",
         "range": "body",
         "dataMap": ["next", "url"]
+      },
+      {
+        "with": "index",
+        "range": ".index-box",
+        "dataMap": ["more", "url"]
       },
       {
         "with": "post",
@@ -20,11 +26,10 @@
     ]
   },
   "post": {
-    "url": "https://app.zblogcn.com/?id=2120",
+    "url": "https://app.zblogcn.com/?id=2257",
     "rules": {
       "title": ["div.app-header-detail h3", "text"],
-      "cate": [".sitemap a:nth-child(2)", "text"],
-      "comment": ["div.commentx", "html"]
+      "cate": [".sitemap a:nth-child(2)", "text"]
     },
     "act": {
       "title": ["", "title"],
