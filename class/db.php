@@ -1,13 +1,6 @@
 <?php
-/*
- * list|1 : 列表页
- * post|2 : 文章页
- * postwithpage|3 :带分页的文章页
- *
- */
-
 // 数据库入口，用于保存需要采集的URL、完成状态及其他信息
-class kumoDB extends Base
+class kumo_Risuto extends Base
 {
   public static $tableX = '%pre%kumo_Risuto';
   public static $datainfoX = array(
@@ -33,6 +26,7 @@ class kumoDB extends Base
     if (!$zbp->db->ExistTable(self::$tableX)) {
       $sql = $zbp->db->sql->CreateTable(self::$tableX, self::$datainfoX);
       $zbp->db->QueryMulit($sql);
+      $zbp->SetHint('tips', "数据表已创建【kumo_Risuto】");
     }
   }
 }

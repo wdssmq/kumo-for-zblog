@@ -37,25 +37,20 @@ class kumoCore
       $this->Query = QueryList::html($html);
     }
   }
-  public function Get($option = null)
+  /**
+   *
+   * @param array $option
+   * @param bool $type 0|1 ，获取新列表页链接或解析当前内容
+   * @return void
+   */
+  public function Get($option, $type)
   {
     if ($this->errcode > 0)
       return null;
-    if (is_array($option)) {
+    if ($type === 0) {
       $curKey = $option['dataMap'][0];
       $option["rule"] = array($curKey => $this->rules[$curKey]);
       $cQuery = $this->Query->rules($option["rule"])->range($option["range"])->query();
-
-      // // debug
-      // // ob_clean();
-      // echo __FILE__ . "丨" . __LINE__ . ":<br>\n";
-      // $testData = $cQuery->getData()->all();
-      // var_dump($option);
-      // var_dump($testData);
-      // echo "<br><br>\n\n";
-      // // die();
-      // // debug
-
       $data = $cQuery->getData(function ($item) use ($option) {
         $rlt = $option;
         $keyMap = $option['dataMap'];
@@ -64,11 +59,12 @@ class kumoCore
         }
         return $rlt;
       })->all();
-    } elseif (empty($map)) {
+    } elseif ($type === 1) {
       $act = $this->act;
-      $cQuery = $this->Query->rules($this->rules)->query();
-      // $cQuery = $this->Query->rules(["cmtUser" => [".comment-user-name", "text"]])->query();
-      $data = $cQuery->getData()->all();
+      $data = $this->Query->rules($this->rules)->queryData();
+      if (isset($data[0])) {
+        $data = $data[0];
+      }
       foreach ($act as $k => $a) {
         if (HasNameInString($a[0], "range")) {
           $curRule = $a[2];
@@ -84,6 +80,11 @@ class kumoCore
                 $tmp = str_replace("+{$subk}+", $subv, $tmp);
               }
               $data[$k] .= $tmp;
+            }
+          } else {
+            $data[$k] = $a[1];
+            foreach ($data as $key => $value) {
+              $data[$k] = str_replace("+{$key}+", $value, $data[$k]);
             }
           }
         } elseif (!isset($data[$k])) {

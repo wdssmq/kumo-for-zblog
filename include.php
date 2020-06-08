@@ -52,7 +52,7 @@ function InstallPlugin_kumo()
     #code
   }
   kumo_Initialization();
-  kumoDB::CreateTable();
+  kumo_Risuto::CreateTable();
 }
 function UninstallPlugin_kumo()
 {

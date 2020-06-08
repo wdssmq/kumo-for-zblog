@@ -23,6 +23,15 @@ function kumo_Initialization(&$arrJSON = array())
   $arrJSON = GetFilesInDir($dir, "json");
   $_SERVER['kumo_start_time'] = time();
 }
+function kumo_debug($line, $msg, $content)
+{
+  global $zbp;
+  if (!$zbp->Config('kumo')->debug) {
+    return;
+  }
+  echo "-----<br><br>\n\n";
+  echo "{$line}：<br>{$msg}<br>{$content}", "<br><br>\n\n";
+}
 function kumo_ReadJSON($name)
 {
   $dirs = array("config" => kumo_Path("config"), "cache" => kumo_Path("cache"));
@@ -31,17 +40,10 @@ function kumo_ReadJSON($name)
 }
 function kumo_AddRisuto($arrRisuto)
 {
-  $arrCount = [0, 0];
+  global $zbp;
+  $arrCount = array("new" => 0, "skip" => 0);
   foreach ($arrRisuto as $itemRisuto) {
-    $obj = new kumoDB();
-
-    // // debug
-    // // ob_clean();
-    // echo __FILE__ . "丨" . __LINE__ . ":<br>\n";
-    // var_dump($itemRisuto);
-    // echo "<br><br>\n\n";
-    // die();
-    // // debug
+    $obj = new kumo_Risuto();
 
     if (empty($itemRisuto['url'])) {
       continue;
@@ -53,8 +55,8 @@ function kumo_AddRisuto($arrRisuto)
       if ($_SERVER['kumo_start_time'] - $obj->Time > 259200) {
         $repeat++;
       }
-      if ($repeat && isset($itemRisuto["repeat"]) && $itemRisuto["repeat"]) {
-        $repeat++;
+      if ($repeat && isset($itemRisuto["repeat"])) {
+        $repeat + $itemRisuto["repeat"];
       }
       if ($repeat && $obj->With === $itemRisuto['cur']) {
         $repeat++;
@@ -62,34 +64,35 @@ function kumo_AddRisuto($arrRisuto)
       if ($repeat >= 2) {
         $obj->Done = false;
         $obj->Time = $_SERVER['kumo_start_time'];
-        echo  __LINE__ . "：{$obj->Url} - {$obj->With}", "<br>\n";
-        echo  __LINE__ . "：索引页过期重置", "<br><br>\n\n";
-        $arrCount[1]++;
+        kumo_debug(__LINE__, "索引页过期重置", "{$obj->Url} - {$obj->With}");
+        $arrCount["new"]++;
+        $obj->Save();
       } else {
-        $arrCount[0]++;
-        continue;
+        $arrCount["skip"]++;
       }
+      continue;
     } else {
-      $arrCount[1]++;
+      $arrCount["new"]++;
     }
     $obj->Url = $itemRisuto['url'];
     $obj->With = $itemRisuto['with'];
     $obj->Project = $itemRisuto['project'];
     $obj->Save();
+    kumo_debug(__LINE__, "新增", "{$obj->Url} - {$obj->With}");
   }
-  return "添加：{$arrCount[1]}丨已存在：{$arrCount[0]}";
+  return "添加：{$arrCount["new"]}丨已存在：{$arrCount["skip"]}";
 }
 function kumo_GetRisuto($opt = array())
 {
   global $zbp;
   $w[] = array('=', 'rst_Done', 0);
   $w[] = array('=', 'rst_Project', $opt["project"]);
-  if (isset($opt["order"])) {
-    $w[] = array('=', 'rst_With', $opt["order"]);
-  }
+  // if (isset($opt["order"])) {
+  //   $w[] = array('=', 'rst_With', $opt["order"]);
+  // }
   $limit = isset($opt["num"]) ? $opt["num"] : 57;
-  $sql = $zbp->db->sql->Select(kumoDB::$tableX, '*', $w, array('rst_ID' => 'asc'), $limit, null);
-  $arr = $zbp->GetListType("kumoDB", $sql);
+  $sql = $zbp->db->sql->Select(kumo_Risuto::$tableX, '*', $w, array('rst_ID' => 'asc'), $limit, null);
+  $arr = $zbp->GetListType("kumo_Risuto", $sql);
   $rlt = array();
   if (isset($opt["data"])) {
     foreach ($arr as $key => $Risuto) {
@@ -119,18 +122,6 @@ function kumo_DoAct($arr, $act)
   }
   $post->PostTime = time();
   $post->AuthorID = kumo_AuthorID($arr["author"]);
-  // foreach ($act as $k => $itemRisuto) {
-  //   if (HasNameInString($itemRisuto[0], "body")) {
-  //     if (stripos($post->Content, $arr[$k]) === false)
-  //       $post->Content .= $arr[$k];
-  //   }
-  //   if (HasNameInString($itemRisuto[0], "cate")) {
-  //     $post->CateID = kumo_GetCate($arr[$k], "&gt;");
-  //   }
-  //   if (HasNameInString($itemRisuto[0], "author")) {
-  //     $post->AuthorID = kumo_AuthorID($itemRisuto[1]);
-  //   }
-  // }
   return $post->Save();
 }
 function kumo_GetCate($name, $str = ">>")

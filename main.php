@@ -55,18 +55,19 @@ require $blogpath . 'zb_system/admin/admin_top.php';
       </table>
     </form>
     ----
-    <p><?php echo kumo_a(kumo_Path("run", "host"), "运行地址"); ?></p>
+    <p><?php echo kumo_a(kumo_Path("run", "host"), "运行地址", 0, 1); ?></p>
     <p>将usr_sample中的示例规则复制进usr中，然后访问如上地址即可触发；实际使用时可将该地址添加到云监控服务中。</p>
   </div>
 </div>
 
 <?php
-function kumo_a($href, $title, $text = "")
+function kumo_a($href, $title, $text = "", $newWindow = 0)
 {
   if (empty($text)) {
     $text = $href;
   }
-  return "<a href=\"{$href}\" title=\"{$title}\">$href</a>";
+  $target = $newWindow ? "target=\"_blank\"" : "";
+  return "<a {$target} href=\"{$href}\" title=\"{$title}\">$text</a>";
 }
 function kumo_pjectList()
 {
@@ -78,7 +79,8 @@ function kumo_pjectList()
     if (isset($project->title)) {
       $name = "{$project->title}【{$project->name}】";
     }
-    $rlt .= $name;
+    // $rlt .= $name;
+    $rlt .= kumo_a(kumo_Path("run", "host") . "?name={$project->name}", "运行地址", $name, 1);
     $rlt .= "<br>";
   }
   return $rlt;

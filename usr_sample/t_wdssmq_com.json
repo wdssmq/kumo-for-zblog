@@ -1,0 +1,28 @@
+{
+  "title": "沉冰的碎碎念【旧】",
+  "index": {
+    "url": "https://t.wdssmq.com/",
+    "rules": {
+      "next": ["li.current+li>a", "href"],
+      "current": ["li.current>a", "text"]
+    },
+    "subMap": [
+      {
+        "with": "index",
+        "range": "#pagenavi",
+        "dataMap": ["next", "url"],
+        "repeat": 1
+      }
+    ],
+    "act": {
+      "title": ["tpl", "沉冰的碎碎念【旧】第+current+页"],
+      "cate": ["str", "说明点什么"],
+      "postList": ["range", "#content .post", "content"],
+      "body": ["tpl|array", "+content+", "postList"],
+      "author": ["str", "沉冰浮水"]
+    },
+    "content": {
+      "content": [".content", "html", "-.huati"]
+    }
+  }
+}

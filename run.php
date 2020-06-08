@@ -7,7 +7,6 @@ $arrJSON = array();
 kumo_Initialization($arrJSON);
 
 $projectName = GetVars("name", "GET");
-// $projectName = "test";
 
 if (empty($projectName)) {
   $projectName = array_rand($arrJSON);
@@ -19,6 +18,15 @@ echo "指定入口任务", "<br><br>\n";
 echo "执行并将结果入库", "<br><br>\n";
 
 $project = kumo_ReadJSON($projectName);
+
+// // debug
+// // ob_clean();
+// echo __FILE__ . "丨" . __LINE__ . ":<br>\n";
+// var_dump($project);
+// echo "<br><br>\n\n";
+// die();
+// // debug
+
 $task = $project->Get("index");
 kumo_Run($task);
 echo "-----", "<br><br>\n";
@@ -49,46 +57,22 @@ function kumo_Run($task, $u = "")
     return $obj->ErrInfo;
   }
 
-  if ($zbp->Config('kumo')->debug) {
-    echo "-----<br><br>\n\n";
-    echo __LINE__ . "：网址 - 采集规则丨{$obj->url} - {$obj->name}", "<br><br>\n\n";
-  }
+  kumo_debug(__LINE__, "抓取", "{$obj->url} - {$obj->name}");
 
   if (isset($obj->subMap)) {
-    echo __LINE__ . "：子任务入库", "<br><br>\n\n";
+    // echo __LINE__ . "：子任务入库", "<br><br>\n\n";
     foreach ($obj->subMap as $opt) {
       if (!$project->isset($opt['with']))
         continue;
       $getOpt = array("cur" => $task['name'], "project" => $task['project']) + $opt;
-      $list = $obj->Get($getOpt);
-
-      // // debug
-      // // ob_clean();
-      // echo __FILE__ . "丨" . __LINE__ . ":<br>\n";
-      // var_dump($list);
-      // echo "<br><br>\n\n";
-      // // die();
-      // // debug
-
+      $list = $obj->Get($getOpt, 0);
       $rlt = kumo_AddRisuto($list);
-      echo __LINE__ . "：{$opt['with']}-{$rlt}", "<br><br>\n\n";
+      kumo_debug(__LINE__, "执行结果", "{$opt['with']} - {$rlt}");
     }
-    return;
   }
-  // return;
   if (isset($obj->act)) {
-    $data = $obj->Get();
-
-    // // debug
-    // // ob_clean();
-    // echo __FILE__ . "丨" . __LINE__ . ":<br>\n";
-    // var_dump($data);
-    // echo "<br><br>\n\n";
-    // // die();
-    // // debug
-
+    $data = $obj->Get($obj->act, 1);
     kumo_DoAct($data, $obj->act);
-    return;
   }
 }
 // RunTime();
