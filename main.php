@@ -30,6 +30,8 @@ require $blogpath . 'zb_system/admin/admin_top.php';
 <div id="divMain">
   <div class="divHeader"><?php echo $blogtitle; ?><small><a title="刷新" href="main.php" style="font-size: 16px;display: inline-block;margin-left: 5px;">刷新</a></small></div>
   <div class="SubMenu">
+    <a href="main.php" title="首页"><span class="m-left m-now">首页</span></a>
+    <?php require_once "about.php"; ?>
   </div>
   <div id="divMain2">
     <form action="<?php echo BuildSafeURL("main.php?act=save"); ?>" method="post">
@@ -54,10 +56,18 @@ require $blogpath . 'zb_system/admin/admin_top.php';
         </tr>
       </table>
     </form>
-    ----
+    <!-- ---- -->
     <p><?php echo kumo_a(kumo_Path("run", "host"), "运行地址", 0, 1); ?></p>
     <p>将usr_sample中的示例规则复制进usr中，然后访问如上地址即可触发；实际使用时可将该地址添加到云监控服务中。</p>
   </div>
+  ------
+  <h3>赞赏</h3>
+  <p class="js-qr">
+    <img width="256" src="img/qr-qq.png" alt="QQ" title="QQ">
+    <img width="256" src="img/qr-wx.png" alt="微信" title="微信">
+    <img width="256" src="img/qr-ali.png" alt="支付宝" title="支付宝">
+  </p>
+  <br>
 </div>
 
 <?php
