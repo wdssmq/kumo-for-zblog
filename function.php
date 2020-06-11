@@ -13,15 +13,15 @@ function kumo_Initialization(&$arrJSON = array())
   $dir = kumo_Path("usr");
   $arrJSON = GetFilesInDir($dir, "json");
   $_SERVER['kumo_start_time'] = time();
+  $_SERVER['kumo_debug'] = $zbp->Config('kumo')->debug;
 }
 function kumo_debug($line, $msg, $content)
 {
-  global $zbp;
-  if (!$zbp->Config('kumo')->debug) {
+  if (!$_SERVER['kumo_debug']) {
     return;
   }
   echo "-----<br><br>\n\n";
-  echo "{$line}：<br>{$msg}<br>{$content}", "<br><br>\n\n";
+  echo "{$line}：{$msg}<br>{$content}", "<br><br>\n\n";
 }
 function kumo_ReadJSON($name)
 {
@@ -59,6 +59,7 @@ function kumo_AddRisuto($arrRisuto)
         $arrCount["new"]++;
         $obj->Save();
       } else {
+        kumo_debug(__LINE__, "已存在", "{$obj->Url} - {$obj->With}<!--{$repeat}-->");
         $arrCount["skip"]++;
       }
       continue;
