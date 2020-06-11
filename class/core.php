@@ -18,7 +18,7 @@ class kumoCore
   protected $errcode = 0;
   public function __construct($option, $url = "")
   {
-    $this->data["act"] = array();
+    // $this->data["act"] = array();
     foreach ($option as $key => $value) {
       $this->data[$key] = $value;
     }
@@ -92,6 +92,17 @@ class kumoCore
         }
       }
     }
+
+    if (isset($this->data["debug"]) && $this->data["debug"] == 1) {
+      // debug
+      // ob_clean();
+      echo __FILE__ . "丨" . __LINE__ . ":<br>\n";
+      var_dump($data);
+      echo "<br><br>\n\n";
+      die();
+      // debug
+    }
+
     return $data;
   }
   private function http($url, $p = "")
