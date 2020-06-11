@@ -1,18 +1,9 @@
 <?php
+$GLOBALS['table']['kumo_Risuto'] = kumo_Risuto::$tableX;
+$GLOBALS['datainfo']['kumo_Risuto'] = kumo_Risuto::$datainfoX;
 function kumo_Initialization(&$arrJSON = array())
 {
   global $zbp;
-  $zbp->AddBuildModule('catalog');
-  $zbp->AddBuildModule('previous');
-  $zbp->AddBuildModule('calendar');
-  $zbp->AddBuildModule('comments');
-  $zbp->AddBuildModule('archives');
-  $zbp->AddBuildModule('tags');
-  $zbp->AddBuildModule('authors');
-  $zbp->BuildModule();
-  $zbp->SaveCache();
-  $GLOBALS['table']['kumo_Risuto'] = kumo_Risuto::$tableX;
-  $GLOBALS['datainfo']['kumo_Risuto'] = kumo_Risuto::$datainfoX;
   $dir = kumo_Path("cache");
   if (!is_dir($dir)) {
     @mkdir(dirname($dir));
@@ -61,10 +52,10 @@ function kumo_AddRisuto($arrRisuto)
       if ($repeat && $obj->With === $itemRisuto['cur']) {
         $repeat++;
       }
-      if ($repeat >= 2) {
+      if ($repeat > 2) {
         $obj->Done = false;
         $obj->Time = $_SERVER['kumo_start_time'];
-        kumo_debug(__LINE__, "索引页过期重置", "{$obj->Url} - {$obj->With}");
+        kumo_debug(__LINE__, "索引页过期重置", "{$repeat}丨{$obj->Url} - {$obj->With}");
         $arrCount["new"]++;
         $obj->Save();
       } else {

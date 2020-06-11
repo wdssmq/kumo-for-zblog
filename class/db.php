@@ -23,8 +23,8 @@ class kumo_Risuto extends Base
   public static function CreateTable()
   {
     global $zbp;
-    if (!$zbp->db->ExistTable(self::$tableX)) {
-      $sql = $zbp->db->sql->CreateTable(self::$tableX, self::$datainfoX);
+    if (!$zbp->db->ExistTable($zbp->table['kumo_Risuto'])) {
+      $sql = $zbp->db->sql->CreateTable($zbp->table['kumo_Risuto'], $zbp->datainfo['kumo_Risuto']);
       $zbp->db->QueryMulit($sql);
       $zbp->SetHint('tips', "数据表已创建【kumo_Risuto】");
     }

@@ -75,4 +75,13 @@ function kumo_Run($task, $u = "")
     kumo_DoAct($data, $obj->act);
   }
 }
+$zbp->AddBuildModule('catalog');
+$zbp->AddBuildModule('previous');
+$zbp->AddBuildModule('calendar');
+$zbp->AddBuildModule('comments');
+$zbp->AddBuildModule('archives');
+$zbp->AddBuildModule('tags');
+$zbp->AddBuildModule('authors');
+$zbp->BuildModule();
+$zbp->SaveCache();
 // RunTime();
