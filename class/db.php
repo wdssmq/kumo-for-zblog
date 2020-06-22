@@ -19,7 +19,7 @@ class kumo_Risuto extends Base
     $this->Time = time();
     $this->IP = GetGuestIP();
   }
-  // Risuto::CreateTable()
+  // kumo_Risuto::CreateTable()
   public static function CreateTable()
   {
     global $zbp;

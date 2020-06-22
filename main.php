@@ -11,6 +11,7 @@ if (!$zbp->CheckPlugin('kumo')) {
   $zbp->ShowError(48);
   die();
 }
+InstallPlugin_kumo();
 $act = GetVars('act', 'GET');
 $suc = GetVars('suc', 'GET');
 if (GetVars('act', 'GET') == 'save') {

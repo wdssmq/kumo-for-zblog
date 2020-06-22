@@ -27,15 +27,23 @@ class kumoCore
     } else {
       $this->url = $url;
     }
-    $temp = array_slice(explode("/", $this->url), 0, 3);
-    $temp[] = "";
-    $this->host = implode("/", $temp);
-    $html = $this->http($this->url);
-    if (empty($html)) {
+    try {
+      $this->Query = QueryList::get($this->url, null, [
+        'cache' => $this->cache,
+        'cache_ttl' => 3600 // 缓存有效时间，单位：秒，可以不设置缓存有效时间
+      ]);
+    } catch (Exception $e) {
       $this->errcode = 1;
-    } else {
-      $this->Query = QueryList::html($html);
     }
+    // $temp = array_slice(explode("/", $this->url), 0, 3);
+    // $temp[] = "";
+    // $this->host = implode("/", $temp);
+    // $html = $this->http($this->url);
+    // if (empty($html)) {
+    //   $this->errcode = 1;
+    // } else {
+    //   $this->Query = QueryList::html($html);
+    // }
   }
   /**
    *
@@ -48,6 +56,9 @@ class kumoCore
     if ($this->errcode > 0)
       return null;
     if ($type === 0) {
+      if (!isset($option["host"])) {
+        $option["host"] = "";
+      }
       $curKey = $option['dataMap'][0];
       $option["rule"] = array($curKey => $this->rules[$curKey]);
       $cQuery = $this->Query->rules($option["rule"])->range($option["range"])->query();
@@ -55,7 +66,7 @@ class kumoCore
         $rlt = $option;
         $keyMap = $option['dataMap'];
         if (isset($item[$keyMap[0]])) {
-          $rlt[$keyMap[1]] = $item[$keyMap[0]];
+          $rlt[$keyMap[1]] = $option["host"] . $item[$keyMap[0]];
         }
         return $rlt;
       })->all();

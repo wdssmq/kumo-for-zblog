@@ -13,7 +13,7 @@ function kumo_Initialization(&$arrJSON = array())
   $dir = kumo_Path("usr");
   $arrJSON = GetFilesInDir($dir, "json");
   $_SERVER['kumo_start_time'] = time();
-  $_SERVER['kumo_debug'] = $zbp->Config('kumo')->debug;
+  $_SERVER['kumo_debug'] = (bool) $zbp->Config('kumo')->debug;
 }
 function kumo_debug($line, $msg, $content)
 {
@@ -103,6 +103,7 @@ function kumo_DoAct($arr, $act)
   if (stripos($post->Content, $arr["body"]) === false) {
     $post->Content .= $arr["body"];
   } else {
+    kumo_debug(__LINE__,"《{$post->Title}》已存在","");
     return;
   }
   if (!isset($arr["cate"])) {

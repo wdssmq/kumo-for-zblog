@@ -53,7 +53,7 @@ function kumo_Run($task, $u = "")
   $obj = new kumoCore($task, $u);
   // $obj->debug(1);
   if ($obj->ErrCode > 0) {
-    $obj->debug(1);
+    $obj->debug($_SERVER['kumo_debug']);
     return $obj->ErrInfo;
   }
 
