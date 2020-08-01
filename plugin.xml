@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin version="php">
 <id>kumo</id>
-<name>采集</name>
+<name>咸鱼采集</name>
 <url>//jq.qq.com/?_wv=1027&amp;k=555hND5</url>
 <note></note>
 <description>置百丈玄冰而崩裂，掷须臾池水而漂摇。</description>

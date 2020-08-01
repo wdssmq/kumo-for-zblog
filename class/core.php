@@ -1,8 +1,13 @@
 <?php
 
-use QL\QueryList;
+/**
+ * 核心处理
+ * 咸鱼采集（https://github.com/wdssmq/kumo-for-zblog）
+ * 沉冰浮水
+ * 2020-08-01 ——
+ */
 
-use function PHPSTORM_META\map;
+use QL\QueryList;
 
 // 抓取远程内容并解析出所需数据
 class kumoCore

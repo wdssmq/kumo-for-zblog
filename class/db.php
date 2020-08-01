@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * 自定义数据表封装 For Z-Blog
+ * 咸鱼采集（https://github.com/wdssmq/kumo-for-zblog）
+ * 沉冰浮水
+ * 2020-08-01 ——
+ */
 // 数据库入口，用于保存需要采集的URL、完成状态及其他信息
 class kumo_Risuto extends Base
 {
@@ -30,3 +37,5 @@ class kumo_Risuto extends Base
     }
   }
 }
+$GLOBALS['table']['kumo_Risuto'] = kumo_Risuto::$tableX;
+$GLOBALS['datainfo']['kumo_Risuto'] = kumo_Risuto::$datainfoX;

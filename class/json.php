@@ -1,4 +1,11 @@
-<?php // 基于JSON的站点任务配置
+<?php
+
+/**
+ * 基于JSON的站点任务配置
+ * 咸鱼采集（https://github.com/wdssmq/kumo-for-zblog）
+ * 沉冰浮水
+ * 2020-08-01 ——
+ */
 class kumoJSON
 {
   public $name;

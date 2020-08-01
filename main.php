@@ -24,7 +24,7 @@ if (GetVars('act', 'GET') == 'save') {
   $zbp->SetHint('good');
   Redirect('./main.php' . ($suc == null ? '' : '?act=$suc'));
 }
-$blogtitle = 'kumo';
+$blogtitle = '咸鱼采集';
 require $blogpath . 'zb_system/admin/admin_header.php';
 require $blogpath . 'zb_system/admin/admin_top.php';
 ?>

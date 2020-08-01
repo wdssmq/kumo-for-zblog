@@ -1,6 +1,4 @@
 <?php
-$GLOBALS['table']['kumo_Risuto'] = kumo_Risuto::$tableX;
-$GLOBALS['datainfo']['kumo_Risuto'] = kumo_Risuto::$datainfoX;
 function kumo_Initialization(&$arrJSON = array())
 {
   global $zbp;
