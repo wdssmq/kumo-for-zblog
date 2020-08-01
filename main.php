@@ -24,7 +24,7 @@ if (GetVars('act', 'GET') == 'save') {
   $zbp->SetHint('good');
   Redirect('./main.php' . ($suc == null ? '' : '?act=$suc'));
 }
-$blogtitle = '咸鱼采集';
+$blogtitle = '某理念崩坏的采集插件';
 require $blogpath . 'zb_system/admin/admin_header.php';
 require $blogpath . 'zb_system/admin/admin_top.php';
 ?>
@@ -62,6 +62,7 @@ require $blogpath . 'zb_system/admin/admin_top.php';
     <p>将usr_sample中的示例规则复制进usr中，然后访问如上地址即可触发；实际使用时可将该地址添加到云监控服务中。</p>
   </div>
   ------
+  <h3><?php echo kumo_a("https://github.com/wdssmq/kumo-for-zblog", "Git"); ?></h3>
   <h3>赞赏</h3>
   <p class="js-qr">
     <img width="256" src="img/qr-qq.png" alt="QQ" title="QQ">
@@ -72,7 +73,7 @@ require $blogpath . 'zb_system/admin/admin_top.php';
 </div>
 
 <?php
-function kumo_a($href, $title, $text = "", $newWindow = 0)
+function kumo_a($href, $title, $text = "", $newWindow = 1)
 {
   if (empty($text)) {
     $text = $href;

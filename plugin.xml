@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin version="php">
 <id>kumo</id>
-<name>咸鱼采集</name>
+<name>某理念崩坏的采集插件</name>
 <url>//jq.qq.com/?_wv=1027&amp;k=555hND5</url>
-<note></note>
+<note>实现一个功能，和设计一个功能，终究是不一样吧</note>
 <description>置百丈玄冰而崩裂，掷须臾池水而漂摇。</description>
 <path>main.php</path>
 <include>include.php</include>
@@ -23,7 +23,7 @@
 <pubdate>2019-05-24</pubdate>
 <modified>2020-06-11</modified>
 <price>0</price>
-<phpver>7.0</phpver>
+<phpver>7.1</phpver>
 <advanced>
   <dependency></dependency>
   <rewritefunctions></rewritefunctions>
