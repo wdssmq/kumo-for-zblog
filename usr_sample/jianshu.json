@@ -9,7 +9,9 @@
       {
         "with": "post",
         "range": ".note-list li",
-        "dataMap": ["url", "url"]
+        "pick": "url",
+        "host": "https://www.jianshu.com",
+        "repeat": 0
       }
     ]
   },
@@ -17,7 +19,7 @@
     "url": "https://www.jianshu.com/p/c393e145d6a7",
     "rules": {
       "title": ["section h1", "text"],
-      "body": ["._2rhmJa", "html"]
+      "body": ["._2rhmJa", "html", "-div"]
     },
     "act": {
       "title": ["", "title"],

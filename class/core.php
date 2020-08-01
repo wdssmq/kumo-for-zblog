@@ -64,17 +64,17 @@ class kumoCore
       if (!isset($option["host"])) {
         $option["host"] = "";
       }
-      $curKey = $option['dataMap'][0];
+      $curKey = $option['pick'];
       $option["rule"] = array($curKey => $this->rules[$curKey]);
       $cQuery = $this->Query->rules($option["rule"])->range($option["range"])->query();
-      $data = $cQuery->getData(function ($item) use ($option) {
+      $data = $cQuery->getData(function ($item) use ($option, $curKey) {
         $rlt = $option;
-        $keyMap = $option['dataMap'];
-        if (isset($item[$keyMap[0]])) {
-          $rlt[$keyMap[1]] = $option["host"] . $item[$keyMap[0]];
+        if (isset($item[$curKey])) {
+          $rlt["url"] = $option["host"] . $item[$curKey];
         }
         return $rlt;
       })->all();
+      // $data = $cQuery->getData()->all();
     } elseif ($type === 1) {
       $act = $this->act;
       $data = $this->Query->rules($this->rules)->queryData();
@@ -109,7 +109,7 @@ class kumoCore
       }
     }
 
-    if (isset($this->data["debug"]) && $this->data["debug"] == 1) {
+    if (isset($option["debug"]) && $option["debug"] == 1) {
       // debug
       // ob_clean();
       echo __FILE__ . "丨" . __LINE__ . ":<br>\n";

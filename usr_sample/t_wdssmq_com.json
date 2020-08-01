@@ -10,7 +10,7 @@
       {
         "with": "index",
         "range": "#pagenavi",
-        "dataMap": ["next", "url"],
+        "pick": "next",
         "repeat": 1
       }
     ],

@@ -5,24 +5,27 @@
     "rules": {
       "post": ["a.clickable-link", "href"],
       "next": [".now-page+a", "href"],
-      "more": [".app-intro-more a", "href"]
+      "more": ["a", "href"]
     },
     "subMap": [
       {
         "with": "index",
         "range": "body",
-        "dataMap": ["next", "url"]
+        "pick": "next",
+        "repeat": 1,
       },
       {
         "with": "index",
-        "range": ".index-box",
-        "dataMap": ["more", "url"]
+        "range": ".app-intro-more",
+        "pick": "more",
+        "host": "https://app.zblogcn.com",
+        "repeat": 1,
+        "debug": 0
       },
       {
         "with": "post",
         "range": ".app-intro-list .app-intro",
-        "dataMap": ["post", "url"],
-        "repeat": 1
+        "pick": "post"
       }
     ]
   },

@@ -40,7 +40,6 @@ function kumo_AddRisuto($arrRisuto)
 
     if ($obj->LoadInfoByField("Url", $itemRisuto['url'])) {
       $repeat = 0;
-      // $repeat = 1;
       if ($_SERVER['kumo_start_time'] - $obj->Time > 259200) {
         $repeat++;
       }
