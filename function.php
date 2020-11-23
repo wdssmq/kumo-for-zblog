@@ -13,9 +13,9 @@ function kumo_Initialization(&$arrJSON = array())
   $_SERVER['kumo_start_time'] = time();
   $_SERVER['kumo_debug'] = (bool) $zbp->Config('kumo')->debug;
 }
-function kumo_debug($line, $msg, $content)
+function kumo_debug($line, $msg, $content, $force = 0)
 {
-  if (!$_SERVER['kumo_debug']) {
+  if (!$_SERVER['kumo_debug'] && !$force) {
     return;
   }
   echo "-----<br><br>\n\n";
@@ -100,7 +100,7 @@ function kumo_DoAct($arr, $act)
   if (stripos($post->Content, $arr["body"]) === false) {
     $post->Content .= $arr["body"];
   } else {
-    kumo_debug(__LINE__,"《{$post->Title}》已存在","");
+    kumo_debug(__LINE__, "《{$post->Title}》已存在", "");
     return;
   }
   if (!isset($arr["cate"])) {
@@ -112,6 +112,9 @@ function kumo_DoAct($arr, $act)
     $post->Intro = $arr['intro'];
   } else if (empty($post->Intro)) {
     $post->Intro = preg_replace('/^((<p>.+?<\/p>){1,5}).+/u',  '$1', $post->Content);
+    $post->Content = str_replace("<p></p>", "", $post->Content);
+    $post->Content = str_replace("<p><br></p>", "", $post->Content);
+    $post->Content = str_replace("<br></p>", "", $post->Content);
   }
   $post->PostTime = time();
   $post->AuthorID = kumo_AuthorID($arr["author"]);

@@ -67,7 +67,7 @@ function kumo_Run($task, $u = "")
       $getOpt = array("cur" => $task['name'], "project" => $task['project']) + $opt;
       $list = $obj->Get($getOpt, 0);
       $rlt = kumo_AddRisuto($list);
-      kumo_debug(__LINE__, "执行结果", "{$opt['with']} - {$rlt}");
+      kumo_debug(__LINE__, "执行结果", "{$opt['with']} - {$rlt}", 1);
     }
   }
   if (isset($obj->act)) {
