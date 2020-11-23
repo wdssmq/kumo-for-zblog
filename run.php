@@ -2,6 +2,12 @@
 require '../../../zb_system/function/c_system_base.php';
 $zbp->Load();
 ZBlogException::$islogerror = false;
+// composer require jaeger/querylist
+require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/class/core.php';
+require __DIR__ . '/class/db.php';
+require __DIR__ . '/class/json.php';
+require __DIR__ . '/function.php';
 
 $arrJSON = array();
 kumo_Initialization($arrJSON);

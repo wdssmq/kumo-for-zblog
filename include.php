@@ -1,11 +1,4 @@
 <?php
-// 在这里引入Composer的自动加载文件
-require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/class/core.php';
-require __DIR__ . '/class/db.php';
-require __DIR__ . '/class/json.php';
-require __DIR__ . '/function.php';
-
 #注册插件
 RegisterPlugin("kumo", "ActivePlugin_kumo");
 
@@ -51,6 +44,12 @@ function InstallPlugin_kumo()
     @mkdir($dir, 0755);
     #code
   }
+  // composer require jaeger/querylist
+  // require __DIR__ . '/vendor/autoload.php';
+  // require __DIR__ . '/class/core.php';
+  require __DIR__ . '/class/db.php';
+  require __DIR__ . '/class/json.php';
+  require __DIR__ . '/function.php';
   kumo_Initialization();
   kumo_Risuto::CreateTable();
 }
