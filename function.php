@@ -80,7 +80,7 @@ function kumo_GetRisuto($opt = array())
   //   $w[] = array('=', 'rst_With', $opt["order"]);
   // }
   $limit = isset($opt["num"]) ? $opt["num"] : 57;
-  $sql = $zbp->db->sql->Select(kumo_Risuto::$tableX, '*', $w, array('rst_ID' => 'asc'), $limit, null);
+  $sql = $zbp->db->sql->Select($GLOBALS['table']['kumo_Risuto'], '*', $w, array('rst_ID' => 'asc'), $limit, null);
   $arr = $zbp->GetListType("kumo_Risuto", $sql);
   $rlt = array();
   if (isset($opt["data"])) {

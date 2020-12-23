@@ -7,9 +7,11 @@
  * 2020-08-01 ——
  */
 // 数据库入口，用于保存需要采集的URL、完成状态及其他信息
+// 复制整个文件后替换kumo_Risuto为 `appid_表名`
 class kumo_Risuto extends Base
 {
   public static $tableX = '%pre%kumo_Risuto';
+  // 自行组织这里的字段名↓↓，rst前缀自行替换
   public static $datainfoX = array(
     'ID' => array('rst_ID', 'integer', '', 0),
     'Url' => array('rst_Url', 'string', 255, ''),
@@ -26,6 +28,7 @@ class kumo_Risuto extends Base
     $this->Time = time();
     $this->IP = GetGuestIP();
   }
+  // InstallPlugin_XXX中调用↓
   // kumo_Risuto::CreateTable()
   public static function CreateTable()
   {
@@ -39,3 +42,24 @@ class kumo_Risuto extends Base
 }
 $GLOBALS['table']['kumo_Risuto'] = kumo_Risuto::$tableX;
 $GLOBALS['datainfo']['kumo_Risuto'] = kumo_Risuto::$datainfoX;
+
+// 调用
+// // 存
+// $rst = new kumo_Risuto();
+// $rst->Url = "http://www.baidu.com/";
+// $rst->With = "index";
+// $rst->Project = "test";
+// $rst->Save();
+// // 取
+// $w[] = array('=', 'rst_Done', 0);
+// $w[] = array('=', 'rst_Project', "test");
+// $sql = $zbp->db->sql->Select($GLOBALS['table']['kumo_Risuto'], '*', $w, array('rst_ID' => 'asc'));
+// $arr = $zbp->GetListType("kumo_Risuto", $sql);
+
+// // debug
+// // ob_clean();
+// echo __FILE__ . "丨" . __LINE__ . ":<br>\n";
+// var_dump($arr[0]->GetData());
+// echo "<br><br>\n\n";
+// // die();
+// // debug
