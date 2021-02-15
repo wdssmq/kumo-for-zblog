@@ -12,10 +12,10 @@ require __DIR__ . '/function.php';
 $arrJSON = array();
 kumo_Initialization($arrJSON);
 
-$projectName = GetVars("name", "GET");
+$projName = GetVars("name", "GET");
 
-if (empty($projectName)) {
-  $projectName = array_rand($arrJSON);
+if (empty($projName)) {
+  $projName = array_rand($arrJSON);
 }
 
 echo "开始", "<br><br>\n";
@@ -23,7 +23,7 @@ echo "加载任务描述文件", "<br><br>\n";
 echo "指定入口任务", "<br><br>\n";
 echo "执行并将结果入库", "<br><br>\n";
 
-$project = kumo_ReadJSON($projectName);
+$project = kumo_ReadJSON($projName);
 
 // // debug
 // // ob_clean();
@@ -39,7 +39,7 @@ echo "-----", "<br><br>\n";
 echo "从数据库取出未执行的任务并执行", "<br><br>\n";
 echo "过程中会产生新任务并入库", "<br><br>\n";
 echo "最终采集结果则组织为文章发布", "<br><br>\n";
-$opt = array("num" => 37, "project" => $projectName);
+$opt = array("num" => 37, "project" => $projName);
 $Risutos = kumo_GetRisuto($opt);
 foreach ($Risutos as $Risuto) {
   if ($Risuto->With == "") {
@@ -78,7 +78,9 @@ function kumo_Run($task, $u = "")
   }
   if (isset($obj->act)) {
     $data = $obj->Get($obj->act, 1);
-    kumo_DoAct($data, $obj->act);
+    if (!empty($data)) {
+      kumo_DoAct($data, $obj->act);
+    }
   }
 }
 $zbp->AddBuildModule('catalog');

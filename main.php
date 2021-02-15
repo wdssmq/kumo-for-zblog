@@ -49,7 +49,7 @@ require $blogpath . 'zb_system/admin/admin_top.php';
         </tr>
         <tr>
           <td>规则列表</td>
-          <td colspan="2"><?php echo kumo_pjectList(); ?></td>
+          <td colspan="2"><?php echo kumo_projList(); ?></td>
         </tr>
         <tr>
           <td>点击保存→</td>
@@ -81,7 +81,7 @@ function kumo_a($href, $title, $text = "", $newWindow = 1)
   $target = $newWindow ? "target=\"_blank\"" : "";
   return "<a {$target} href=\"{$href}\" title=\"{$title}\">$text</a>";
 }
-function kumo_pjectList()
+function kumo_projList()
 {
   $arrJSON = array();
   kumo_Initialization($arrJSON);

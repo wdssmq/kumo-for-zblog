@@ -103,7 +103,7 @@ function kumo_DoAct($arr, $act)
     kumo_debug(__LINE__, "《{$post->Title}》已存在", "");
     return;
   }
-  if (!isset($arr["cate"])) {
+  if (!isset($arr["cate"]) || $arr["cate"] == "") {
     echo __LINE__ . "：未指定分类\n\n";
   } else {
     $post->CateID = kumo_GetCate($arr["cate"]);

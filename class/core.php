@@ -77,14 +77,18 @@ class kumoCore
       // $data = $cQuery->getData()->all();
     } elseif ($type === 1) {
       $act = $this->act;
-      $data = $this->Query->rules($this->rules)->queryData();
+      $data = $this->Query->rules($this->rules)->range("body")->queryData();
+      if (empty($data)) {
+        echo __LINE__ . "：解析为空\n\n";
+        return $data;
+      }
       if (isset($data[0])) {
         $data = $data[0];
       }
       foreach ($act as $k => $a) {
         if (HasNameInString($a[0], "range")) {
-          $curRule = $a[2];
-          $cQuery = $this->Query->rules($this->$curRule)->range($a[1])->query();
+          $curRule = $this->data[$a[2]];
+          $cQuery = $this->Query->rules($curRule)->range($a[1])->query();
           // $data[$k] = $this->Query->find($rule[0])->texts()->all();
           $data[$k] = $cQuery->getData()->all();
         } elseif (HasNameInString($a[0], "tpl")) {
