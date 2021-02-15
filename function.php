@@ -23,7 +23,7 @@ function kumo_debug($line, $msg, $content, $force = 0)
 }
 function kumo_ReadJSON($name)
 {
-  $dirs = array("config" => kumo_Path("config"), "cache" => kumo_Path("cache"));
+  $dirs = array("proj" => kumo_Path("proj"), "cache" => kumo_Path("cache"));
   $obj = new kumoJSON($name, $dirs);
   return $obj;
 }

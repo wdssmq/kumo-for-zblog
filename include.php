@@ -17,7 +17,7 @@ function kumo_Path($file, $t = 'path')
       // return $result . "img/";
       return $zbp->$t . "zb_users/upload/";
       break;
-    case 'config':
+    case 'proj':
     case 'usr':
       return $result . 'usr/';
       break;

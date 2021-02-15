@@ -16,7 +16,7 @@ class kumoJSON
   public function __construct($name, $dirs = array())
   {
     $this->name = $name;
-    $this->dir = $dirs["config"];
+    $this->dir = $dirs["proj"];
     $this->cache =  $dirs["cache"];
     $this->file = $this->dir . "{$this->name}.json";
     if (is_file($this->file)) {
