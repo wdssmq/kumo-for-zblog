@@ -18,8 +18,8 @@ function kumo_debug($line, $msg, $content, $force = 0)
   if (!$_SERVER['kumo_debug'] && !$force) {
     return;
   }
-  echo "-----<br><br>\n\n";
   echo "{$line}：{$msg}<br>{$content}", "<br><br>\n\n";
+  echo "-----<br><br>\n\n";
 }
 function kumo_ReadJSON($name)
 {

@@ -12,7 +12,7 @@
         "with": "index",
         "range": "body",
         "pick": "next",
-        "repeat": 1,
+        "repeat": 1
       },
       {
         "with": "index",

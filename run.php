@@ -12,6 +12,11 @@ require __DIR__ . '/function.php';
 $arrJSON = array();
 kumo_Initialization($arrJSON);
 
+if (count($arrJSON) === 0) {
+  kumo_debug(__LINE__, "info", "采集规则为空。", 1);
+  die();
+}
+
 $projName = GetVars("name", "GET");
 
 if (empty($projName)) {
