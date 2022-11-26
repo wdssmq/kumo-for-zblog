@@ -1,6 +1,7 @@
 usr
 cache
 
+.history
 *.code-workspace
 
 vendor
