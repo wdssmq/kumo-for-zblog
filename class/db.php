@@ -39,6 +39,16 @@ class kumo_Risuto extends Base
       $zbp->SetHint('tips', "数据表已创建【kumo_Risuto】");
     }
   }
+  // kumo_Risuto::DelTable();
+  public static function DelTable()
+  {
+    global $zbp;
+    if ($zbp->db->ExistTable($zbp->table["kumo_Risuto"])) {
+      $sql = $zbp->db->sql->DelTable(self::$tableX, self::$datainfoX);
+      $zbp->db->QueryMulit($sql);
+      $zbp->SetHint('tips', "数据表已删除【kumo_Risuto】");
+    }
+  }
 }
 $GLOBALS['table']['kumo_Risuto'] = kumo_Risuto::$tableX;
 $GLOBALS['datainfo']['kumo_Risuto'] = kumo_Risuto::$datainfoX;
