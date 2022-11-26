@@ -7,11 +7,11 @@
  * 2020-08-01 ——
  */
 // 数据库入口，用于保存需要采集的URL、完成状态及其他信息
-// 复制整个文件后替换kumo_Risuto为 `appid_表名`
+// 复制整个文件后替换 kumo_Risuto 为 `appid_表名`
 class kumo_Risuto extends Base
 {
   public static $tableX = '%pre%kumo_Risuto';
-  // 自行组织这里的字段名↓↓，rst前缀自行替换
+  // 自行组织这里的字段名↓↓，rst 前缀自行替换
   public static $datainfoX = array(
     'ID' => array('rst_ID', 'integer', '', 0),
     'Url' => array('rst_Url', 'string', 255, ''),
@@ -28,8 +28,8 @@ class kumo_Risuto extends Base
     $this->Time = time();
     $this->IP = GetGuestIP();
   }
-  // InstallPlugin_XXX中调用↓
-  // kumo_Risuto::CreateTable()
+  // InstallPlugin_XXX 中调用↓
+  // kumo_Risuto::CreateTable();
   public static function CreateTable()
   {
     global $zbp;

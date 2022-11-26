@@ -17,7 +17,7 @@ class kumoCore
   protected $data = array();
   protected $errinfo = array(
     0 => "",
-    1 => "html为空",
+    1 => "html 为空",
     2 => "图片获取失败",
   );
   protected $errcode = 0;
